@@ -4,7 +4,7 @@
 
 Name:           atkmm
 Version:        2.22.7
-Release:        1%{?dist}
+Release:        3%{?dist}
 Summary:        C++ interface for the ATK library
 
 Group:          System Environment/Libraries
@@ -86,6 +86,12 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 
 
 %changelog
+* Fri Jan 24 2014 Daniel Mach <dmach@redhat.com> - 2.22.7-3
+- Mass rebuild 2014-01-24
+
+* Fri Dec 27 2013 Daniel Mach <dmach@redhat.com> - 2.22.7-2
+- Mass rebuild 2013-12-27
+
 * Mon Apr 29 2013 Kalev Lember <kalevlember@gmail.com> - 2.22.7-1
 - Update to 2.22.7
 - Drop -devel package deps that rpmbuild takes care of automatically
