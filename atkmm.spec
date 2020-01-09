@@ -2,9 +2,11 @@
 # first two digits of version
 %define release_version %(echo %{version} | awk -F. '{print $1"."$2}')
 
+%global glibmm24_version 2.46.1
+
 Name:           atkmm
-Version:        2.22.7
-Release:        3%{?dist}
+Version:        2.24.2
+Release:        1%{?dist}
 Summary:        C++ interface for the ATK library
 
 Group:          System Environment/Libraries
@@ -13,10 +15,9 @@ URL:            http://www.gtkmm.org/
 Source0:        http://ftp.gnome.org/pub/GNOME/sources/atkmm/%{release_version}/atkmm-%{version}.tar.xz
 
 BuildRequires:  atk-devel
-BuildRequires:  glibmm24-devel
+BuildRequires:  glibmm24-devel >= %{glibmm24_version}
 
-# atkmm was split out into a separate package in gtkmm24 2.21.1
-Conflicts:      gtkmm24 < 2.21.1
+Requires:       glibmm24%{?_isa} >= %{glibmm24_version}
 
 %description
 atkmm provides a C++ interface for the ATK library. Highlights
@@ -29,7 +30,6 @@ quickly create complex user interfaces.
 Summary:        Development files for %{name}
 Group:          Development/Libraries
 Requires:       %{name} = %{version}-%{release}
-Conflicts:      gtkmm24-devel < 2.21.1
 
 %description devel
 The %{name}-devel package contains libraries and header files for
@@ -61,7 +61,7 @@ make %{?_smp_mflags}
 
 
 %install
-make install DESTDIR=$RPM_BUILD_ROOT INSTALL="install -p"
+%make_install
 find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 
 
@@ -71,7 +71,8 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 
 
 %files
-%doc AUTHORS ChangeLog COPYING NEWS README
+%license COPYING
+%doc AUTHORS NEWS README
 %{_libdir}/*.so.*
 
 %files devel
@@ -86,6 +87,10 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 
 
 %changelog
+* Mon Nov 30 2015 Kalev Lember <klember@redhat.com> - 2.24.2-1
+- Update to 2.24.2
+- Resolves: #1386810
+
 * Fri Jan 24 2014 Daniel Mach <dmach@redhat.com> - 2.22.7-3
 - Mass rebuild 2014-01-24
 

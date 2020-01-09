@@ -19,7 +19,7 @@
 # pkg-config name as before and is meant to be binary compatible.  Thus for the
 # time being, the version number cannot be brought in line with ATK, since that
 # would break compatibility.
-AC_INIT([atkmm], [2.22.7], [https://bugzilla.gnome.org/enter_bug.cgi?product=atkmm],
+AC_INIT([atkmm], [2.24.2], [https://bugzilla.gnome.org/enter_bug.cgi?product=atkmm],
         [atkmm], [http://www.gtkmm.org/])
 AC_PREREQ([2.59])
 
@@ -33,7 +33,7 @@ m4_ifdef([AM_SILENT_RULES], [AM_SILENT_RULES])
 AM_MAINTAINER_MODE
 AC_ARG_VAR([ACLOCAL_FLAGS], [aclocal flags, e.g. -I <macro dir>])
 
-MM_PREREQ([0.9.5])
+MM_PREREQ([0.9.8])
 MM_INIT_MODULE([atkmm-1.6])
 
 # Copy the mm-common .pl scripts into docs/,
@@ -45,10 +45,12 @@ MM_CONFIG_DOCTOOL_DIR([doc])
 AC_SUBST([ATKMM_SO_VERSION], [2:0:1])
 
 AC_PROG_CXX
+MM_AX_CXX_COMPILE_STDCXX_11([noext],[mandatory])
+
 AC_DISABLE_STATIC
 LT_INIT([win32-dll])
 
-AC_SUBST([ATKMM_MODULES], ['atk >= 1.12 glibmm-2.4 >= 2.36'])
+AC_SUBST([ATKMM_MODULES], ['atk >= 1.18 glibmm-2.4 >= 2.46.2'])
 PKG_CHECK_MODULES([ATKMM], [$ATKMM_MODULES])
 
 MM_PKG_CONFIG_SUBST([GTHREAD_CFLAGS], [--cflags-only-other gthread-2.0])
@@ -64,7 +66,7 @@ MM_ARG_WITH_TAGFILE_DOC([glibmm-2.4.tag], [glibmm-2.4])
 AC_LANG([C++])
 MM_ARG_ENABLE_WARNINGS([ATKMM_WXXFLAGS],
                        [-Wall],
-                       [-pedantic -Wall -Wextra -Wno-long-long -DGSEAL_ENABLE],
+                       [-pedantic -Wall -Wextra -Wformat-security -Wsuggest-override -Wshadow -Wno-long-long],
                        [G ATK GLIBMM])
 
 AC_CONFIG_FILES([Makefile
@@ -75,15 +77,9 @@ AC_CONFIG_FILES([Makefile
                  atk/atkmm/Makefile
                  doc/Makefile
                  doc/reference/Doxyfile
-                 MSVC_Net2005/atkmm/atkmm.rc
-                 MSVC_Net2008/atkmm/atkmm.rc
-                 MSVC_Net2010/atkmm/atkmm.rc])
+                 MSVC_Net2013/atkmm/atkmm.rc])
 
 # Copy the generated configuration headers into the MSVC project directories.
-AC_CONFIG_COMMANDS([MSVC_Net2005/atkmm/atkmmconfig.h],
-                   [cp -f atk/atkmmconfig.h MSVC_Net2005/atkmm/atkmmconfig.h])
-AC_CONFIG_COMMANDS([MSVC_Net2008/atkmm/atkmmconfig.h],
-                   [cp -f atk/atkmmconfig.h MSVC_Net2008/atkmm/atkmmconfig.h])
-AC_CONFIG_COMMANDS([MSVC_Net2010/atkmm/atkmmconfig.h],
-                   [cp -f atk/atkmmconfig.h MSVC_Net2010/atkmm/atkmmconfig.h])
+AC_CONFIG_COMMANDS([MSVC_Net2013/atkmm/atkmmconfig.h],
+                   [cp -f atk/atkmmconfig.h MSVC_Net2013/atkmm/atkmmconfig.h])
 AC_OUTPUT

@@ -31,6 +31,12 @@
   (gtype-id "ATK_TYPE_HYPERLINK")
 )
 
+(define-object HyperlinkImpl
+  (in-module "Atk")
+  (c-name "AtkHyperlinkImpl")
+  (gtype-id "ATK_TYPE_HYPERLINK_IMPL")
+)
+
 (define-object Hypertext
   (in-module "Atk")
   (c-name "AtkHypertext")
@@ -47,6 +53,13 @@
   (in-module "Atk")
   (c-name "AtkImplementor")
   (gtype-id "ATK_TYPE_IMPLEMENTOR")
+)
+
+(define-object Misc
+  (in-module "Atk")
+  (parent "GObject")
+  (c-name "AtkMisc")
+  (gtype-id "ATK_TYPE_MISC")
 )
 
 (define-object Object
@@ -84,6 +97,13 @@
   (gtype-id "ATK_TYPE_NO_OP_OBJECT_FACTORY")
 )
 
+(define-object Plug
+  (in-module "Atk")
+  (parent "AtkObject")
+  (c-name "AtkPlug")
+  (gtype-id "ATK_TYPE_PLUG")
+)
+
 (define-object Registry
   (in-module "Atk")
   (parent "GObject")
@@ -111,6 +131,13 @@
   (gtype-id "ATK_TYPE_SELECTION")
 )
 
+(define-object Socket
+  (in-module "Atk")
+  (parent "AtkObject")
+  (c-name "AtkSocket")
+  (gtype-id "ATK_TYPE_SOCKET")
+)
+
 (define-object StateSet
   (in-module "Atk")
   (parent "GObject")
@@ -128,6 +155,12 @@
   (in-module "Atk")
   (c-name "AtkTable")
   (gtype-id "ATK_TYPE_TABLE")
+)
+
+(define-object TableCell
+  (in-module "Atk")
+  (c-name "AtkTableCell")
+  (gtype-id "ATK_TYPE_TABLE_CELL")
 )
 
 (define-object Text
@@ -149,6 +182,12 @@
   (gtype-id "ATK_TYPE_VALUE")
 )
 
+(define-object Window
+  (in-module "Atk")
+  (c-name "AtkWindow")
+  (gtype-id "ATK_TYPE_WINDOW")
+)
+
 ;; Enumerations and flags ...
 
 (define-flags HyperlinkStateFlags
@@ -156,7 +195,7 @@
   (c-name "AtkHyperlinkStateFlags")
   (gtype-id "ATK_TYPE_HYPERLINK_STATE_FLAGS")
   (values
-    '("e" "ATK_HYPERLINK_IS_INLINE")
+    '("inline" "ATK_HYPERLINK_IS_INLINE")
   )
 )
 
@@ -242,6 +281,51 @@
     '("autocomplete" "ATK_ROLE_AUTOCOMPLETE")
     '("editbar" "ATK_ROLE_EDITBAR")
     '("embedded" "ATK_ROLE_EMBEDDED")
+    '("entry" "ATK_ROLE_ENTRY")
+    '("chart" "ATK_ROLE_CHART")
+    '("caption" "ATK_ROLE_CAPTION")
+    '("document-frame" "ATK_ROLE_DOCUMENT_FRAME")
+    '("heading" "ATK_ROLE_HEADING")
+    '("page" "ATK_ROLE_PAGE")
+    '("section" "ATK_ROLE_SECTION")
+    '("redundant-object" "ATK_ROLE_REDUNDANT_OBJECT")
+    '("form" "ATK_ROLE_FORM")
+    '("link" "ATK_ROLE_LINK")
+    '("input-method-window" "ATK_ROLE_INPUT_METHOD_WINDOW")
+    '("table-row" "ATK_ROLE_TABLE_ROW")
+    '("tree-item" "ATK_ROLE_TREE_ITEM")
+    '("document-spreadsheet" "ATK_ROLE_DOCUMENT_SPREADSHEET")
+    '("document-presentation" "ATK_ROLE_DOCUMENT_PRESENTATION")
+    '("document-text" "ATK_ROLE_DOCUMENT_TEXT")
+    '("document-web" "ATK_ROLE_DOCUMENT_WEB")
+    '("document-email" "ATK_ROLE_DOCUMENT_EMAIL")
+    '("comment" "ATK_ROLE_COMMENT")
+    '("list-box" "ATK_ROLE_LIST_BOX")
+    '("grouping" "ATK_ROLE_GROUPING")
+    '("image-map" "ATK_ROLE_IMAGE_MAP")
+    '("notification" "ATK_ROLE_NOTIFICATION")
+    '("info-bar" "ATK_ROLE_INFO_BAR")
+    '("level-bar" "ATK_ROLE_LEVEL_BAR")
+    '("title-bar" "ATK_ROLE_TITLE_BAR")
+    '("block-quote" "ATK_ROLE_BLOCK_QUOTE")
+    '("audio" "ATK_ROLE_AUDIO")
+    '("video" "ATK_ROLE_VIDEO")
+    '("definition" "ATK_ROLE_DEFINITION")
+    '("article" "ATK_ROLE_ARTICLE")
+    '("landmark" "ATK_ROLE_LANDMARK")
+    '("log" "ATK_ROLE_LOG")
+    '("marquee" "ATK_ROLE_MARQUEE")
+    '("math" "ATK_ROLE_MATH")
+    '("rating" "ATK_ROLE_RATING")
+    '("timer" "ATK_ROLE_TIMER")
+    '("description-list" "ATK_ROLE_DESCRIPTION_LIST")
+    '("description-term" "ATK_ROLE_DESCRIPTION_TERM")
+    '("description-value" "ATK_ROLE_DESCRIPTION_VALUE")
+    '("static" "ATK_ROLE_STATIC")
+    '("math-fraction" "ATK_ROLE_MATH_FRACTION")
+    '("math-root" "ATK_ROLE_MATH_ROOT")
+    '("subscript" "ATK_ROLE_SUBSCRIPT")
+    '("superscript" "ATK_ROLE_SUPERSCRIPT")
     '("last-defined" "ATK_ROLE_LAST_DEFINED")
   )
 )
@@ -281,6 +365,9 @@
     '("embedded-by" "ATK_RELATION_EMBEDDED_BY")
     '("popup-for" "ATK_RELATION_POPUP_FOR")
     '("parent-window-of" "ATK_RELATION_PARENT_WINDOW_OF")
+    '("described-by" "ATK_RELATION_DESCRIBED_BY")
+    '("description-for" "ATK_RELATION_DESCRIPTION_FOR")
+    '("node-parent-of" "ATK_RELATION_NODE_PARENT_OF")
     '("last-defined" "ATK_RELATION_LAST_DEFINED")
   )
 )
@@ -322,6 +409,17 @@
     '("manages-descendants" "ATK_STATE_MANAGES_DESCENDANTS")
     '("indeterminate" "ATK_STATE_INDETERMINATE")
     '("truncated" "ATK_STATE_TRUNCATED")
+    '("required" "ATK_STATE_REQUIRED")
+    '("invalid-entry" "ATK_STATE_INVALID_ENTRY")
+    '("supports-autocompletion" "ATK_STATE_SUPPORTS_AUTOCOMPLETION")
+    '("selectable-text" "ATK_STATE_SELECTABLE_TEXT")
+    '("default" "ATK_STATE_DEFAULT")
+    '("animated" "ATK_STATE_ANIMATED")
+    '("visited" "ATK_STATE_VISITED")
+    '("checkable" "ATK_STATE_CHECKABLE")
+    '("has-popup" "ATK_STATE_HAS_POPUP")
+    '("has-tooltip" "ATK_STATE_HAS_TOOLTIP")
+    '("read-only" "ATK_STATE_READ_ONLY")
     '("last-defined" "ATK_STATE_LAST_DEFINED")
   )
 )
@@ -378,6 +476,19 @@
   )
 )
 
+(define-enum TextGranularity
+  (in-module "Atk")
+  (c-name "AtkTextGranularity")
+  (gtype-id "ATK_TYPE_TEXT_GRANULARITY")
+  (values
+    '("char" "ATK_TEXT_GRANULARITY_CHAR")
+    '("word" "ATK_TEXT_GRANULARITY_WORD")
+    '("sentence" "ATK_TEXT_GRANULARITY_SENTENCE")
+    '("line" "ATK_TEXT_GRANULARITY_LINE")
+    '("paragraph" "ATK_TEXT_GRANULARITY_PARAGRAPH")
+  )
+)
+
 (define-enum TextClipType
   (in-module "Atk")
   (c-name "AtkTextClipType")
@@ -411,8 +522,32 @@
   )
 )
 
+(define-enum ValueType
+  (in-module "Atk")
+  (c-name "AtkValueType")
+  (gtype-id "ATK_TYPE_VALUE_TYPE")
+  (values
+    '("very-weak" "ATK_VALUE_VERY_WEAK")
+    '("weak" "ATK_VALUE_WEAK")
+    '("acceptable" "ATK_VALUE_ACCEPTABLE")
+    '("strong" "ATK_VALUE_STRONG")
+    '("very-strong" "ATK_VALUE_VERY_STRONG")
+    '("very-low" "ATK_VALUE_VERY_LOW")
+    '("low" "ATK_VALUE_LOW")
+    '("medium" "ATK_VALUE_MEDIUM")
+    '("high" "ATK_VALUE_HIGH")
+    '("very-high" "ATK_VALUE_VERY_HIGH")
+    '("very-bad" "ATK_VALUE_VERY_BAD")
+    '("bad" "ATK_VALUE_BAD")
+    '("good" "ATK_VALUE_GOOD")
+    '("very-good" "ATK_VALUE_VERY_GOOD")
+    '("best" "ATK_VALUE_BEST")
+    '("last-defined" "ATK_VALUE_LAST_DEFINED")
+  )
+)
 
-;; From /home/murrayc/cvs/gnome210/atk/atk/atkaction.h
+
+;; From atkaction.h
 
 (define-function atk_action_get_type
   (c-name "atk_action_get_type")
@@ -482,7 +617,7 @@
 
 
 
-;; From /home/murrayc/cvs/gnome210/atk/atk/atkcomponent.h
+;; From atkcomponent.h
 
 (define-function atk_rectangle_get_type
   (c-name "atk_rectangle_get_type")
@@ -620,9 +755,15 @@
   )
 )
 
+(define-method get_alpha
+  (of-object "AtkComponent")
+  (c-name "atk_component_get_alpha")
+  (return-type "gdouble")
+)
 
 
-;; From /home/murrayc/cvs/gnome210/atk/atk/atkdocument.h
+
+;; From atkdocument.h
 
 (define-function atk_document_get_type
   (c-name "atk_document_get_type")
@@ -641,9 +782,52 @@
   (return-type "gpointer")
 )
 
+(define-method get_locale
+  (of-object "AtkDocument")
+  (c-name "atk_document_get_locale")
+  (return-type "const-gchar*")
+)
+
+(define-method get_attributes
+  (of-object "AtkDocument")
+  (c-name "atk_document_get_attributes")
+  (return-type "AtkAttributeSet*")
+)
+
+(define-method get_attribute_value
+  (of-object "AtkDocument")
+  (c-name "atk_document_get_attribute_value")
+  (return-type "const-gchar*")
+  (parameters
+    '("const-gchar*" "attribute_name")
+  )
+)
+
+(define-method set_attribute_value
+  (of-object "AtkDocument")
+  (c-name "atk_document_set_attribute_value")
+  (return-type "gboolean")
+  (parameters
+    '("const-gchar*" "attribute_name")
+    '("const-gchar*" "attribute_value")
+  )
+)
+
+(define-method get_current_page_number
+  (of-object "AtkDocument")
+  (c-name "atk_document_get_current_page_number")
+  (return-type "gint")
+)
+
+(define-method get_page_count
+  (of-object "AtkDocument")
+  (c-name "atk_document_get_page_count")
+  (return-type "gint")
+)
 
 
-;; From /home/murrayc/cvs/gnome210/atk/atk/atkeditabletext.h
+
+;; From atkeditabletext.h
 
 (define-function atk_editable_text_get_type
   (c-name "atk_editable_text_get_type")
@@ -722,7 +906,7 @@
 
 
 
-;; From /home/murrayc/cvs/gnome210/atk/atk/atk-enum-types.h
+;; From atk-enum-types.h
 
 (define-function atk_hyperlink_state_flags_get_type
   (c-name "atk_hyperlink_state_flags_get_type")
@@ -759,6 +943,11 @@
   (return-type "GType")
 )
 
+(define-function atk_text_granularity_get_type
+  (c-name "atk_text_granularity_get_type")
+  (return-type "GType")
+)
+
 (define-function atk_text_clip_type_get_type
   (c-name "atk_text_clip_type_get_type")
   (return-type "GType")
@@ -774,9 +963,14 @@
   (return-type "GType")
 )
 
+(define-function atk_value_type_get_type
+  (c-name "atk_value_type_get_type")
+  (return-type "GType")
+)
 
 
-;; From /home/murrayc/cvs/gnome210/atk/atk/atkgobjectaccessible.h
+
+;; From atkgobjectaccessible.h
 
 (define-function atk_gobject_accessible_get_type
   (c-name "atk_gobject_accessible_get_type")
@@ -799,11 +993,11 @@
 
 
 
-;; From /home/murrayc/cvs/gnome210/atk/atk/atk.h
+;; From atk.h
 
 
 
-;; From /home/murrayc/cvs/gnome210/atk/atk/atkhyperlink.h
+;; From atkhyperlink.h
 
 (define-function atk_hyperlink_get_type
   (c-name "atk_hyperlink_get_type")
@@ -866,7 +1060,22 @@
 
 
 
-;; From /home/murrayc/cvs/gnome210/atk/atk/atkhypertext.h
+;; From atkhyperlinkimpl.h
+
+(define-function atk_hyperlink_impl_get_type
+  (c-name "atk_hyperlink_impl_get_type")
+  (return-type "GType")
+)
+
+(define-method get_hyperlink
+  (of-object "AtkHyperlinkImpl")
+  (c-name "atk_hyperlink_impl_get_hyperlink")
+  (return-type "AtkHyperlink*")
+)
+
+
+
+;; From atkhypertext.h
 
 (define-function atk_hypertext_get_type
   (c-name "atk_hypertext_get_type")
@@ -899,7 +1108,7 @@
 
 
 
-;; From /home/murrayc/cvs/gnome210/atk/atk/atkimage.h
+;; From atkimage.h
 
 (define-function atk_image_get_type
   (c-name "atk_image_get_type")
@@ -942,17 +1151,45 @@
   )
 )
 
-
-
-;; From /home/murrayc/cvs/gnome210/atk/atk/atkintl.h
-
-
-
-;; From /home/murrayc/cvs/gnome210/atk/atk/atkmarshal.h
+(define-method get_image_locale
+  (of-object "AtkImage")
+  (c-name "atk_image_get_image_locale")
+  (return-type "const-gchar*")
+)
 
 
 
-;; From /home/murrayc/cvs/gnome210/atk/atk/atknoopobjectfactory.h
+;; From atkmarshal.h
+
+
+
+;; From atkmisc.h
+
+(define-function atk_misc_get_type
+  (c-name "atk_misc_get_type")
+  (return-type "GType")
+)
+
+(define-method threads_enter
+  (of-object "AtkMisc")
+  (c-name "atk_misc_threads_enter")
+  (return-type "none")
+)
+
+(define-method threads_leave
+  (of-object "AtkMisc")
+  (c-name "atk_misc_threads_leave")
+  (return-type "none")
+)
+
+(define-function atk_misc_get_instance
+  (c-name "atk_misc_get_instance")
+  (return-type "const-AtkMisc*")
+)
+
+
+
+;; From atknoopobjectfactory.h
 
 (define-function atk_no_op_object_factory_get_type
   (c-name "atk_no_op_object_factory_get_type")
@@ -967,7 +1204,7 @@
 
 
 
-;; From /home/murrayc/cvs/gnome210/atk/atk/atknoopobject.h
+;; From atknoopobject.h
 
 (define-function atk_no_op_object_get_type
   (c-name "atk_no_op_object_get_type")
@@ -985,7 +1222,7 @@
 
 
 
-;; From /home/murrayc/cvs/gnome210/atk/atk/atkobjectfactory.h
+;; From atkobjectfactory.h
 
 (define-function atk_object_factory_get_type
   (c-name "atk_object_factory_get_type")
@@ -1015,15 +1252,7 @@
 
 
 
-;; From /home/murrayc/cvs/gnome210/atk/atk/atkobject.h
-
-(define-function atk_role_register
-  (c-name "atk_role_register")
-  (return-type "AtkRole")
-  (parameters
-    '("const-gchar*" "name")
-  )
-)
+;; From atkobject.h
 
 (define-function atk_object_get_type
   (c-name "atk_object_get_type")
@@ -1056,6 +1285,12 @@
 (define-method get_parent
   (of-object "AtkObject")
   (c-name "atk_object_get_parent")
+  (return-type "AtkObject*")
+)
+
+(define-method peek_parent
+  (of-object "AtkObject")
+  (c-name "atk_object_peek_parent")
   (return-type "AtkObject*")
 )
 
@@ -1096,6 +1331,12 @@
   (of-object "AtkObject")
   (c-name "atk_object_get_mdi_zorder")
   (return-type "gint")
+)
+
+(define-method get_attributes
+  (of-object "AtkObject")
+  (c-name "atk_object_get_attributes")
+  (return-type "AtkAttributeSet*")
 )
 
 (define-method ref_state_set
@@ -1223,9 +1464,98 @@
   (return-type "const-gchar*")
 )
 
+(define-function atk_role_register
+  (c-name "atk_role_register")
+  (return-type "AtkRole")
+  (parameters
+    '("const-gchar*" "name")
+  )
+)
+
+(define-method get_object_locale
+  (of-object "AtkObject")
+  (c-name "atk_object_get_object_locale")
+  (return-type "const-gchar*")
+)
 
 
-;; From /home/murrayc/cvs/gnome210/atk/atk/atkregistry.h
+
+;; From atkplug.h
+
+(define-function atk_plug_get_type
+  (c-name "atk_plug_get_type")
+  (return-type "GType")
+)
+
+(define-function atk_plug_new
+  (c-name "atk_plug_new")
+  (is-constructor-of "AtkPlug")
+  (return-type "AtkObject*")
+)
+
+(define-method get_id
+  (of-object "AtkPlug")
+  (c-name "atk_plug_get_id")
+  (return-type "gchar*")
+)
+
+
+
+;; From atkprivate.h
+
+
+
+;; From atkrange.h
+
+(define-function atk_range_get_type
+  (c-name "atk_range_get_type")
+  (return-type "GType")
+)
+
+(define-method copy
+  (of-object "AtkRange")
+  (c-name "atk_range_copy")
+  (return-type "AtkRange*")
+)
+
+(define-method free
+  (of-object "AtkRange")
+  (c-name "atk_range_free")
+  (return-type "none")
+)
+
+(define-method get_lower_limit
+  (of-object "AtkRange")
+  (c-name "atk_range_get_lower_limit")
+  (return-type "gdouble")
+)
+
+(define-method get_upper_limit
+  (of-object "AtkRange")
+  (c-name "atk_range_get_upper_limit")
+  (return-type "gdouble")
+)
+
+(define-method get_description
+  (of-object "AtkRange")
+  (c-name "atk_range_get_description")
+  (return-type "const-gchar*")
+)
+
+(define-function atk_range_new
+  (c-name "atk_range_new")
+  (is-constructor-of "AtkRange")
+  (return-type "AtkRange*")
+  (parameters
+    '("gdouble" "lower_limit")
+    '("gdouble" "upper_limit")
+    '("const-gchar*" "description")
+  )
+)
+
+
+
+;; From atkregistry.h
 
 (define-function atk_registry_get_type
   (c-name "atk_registry_get_type")
@@ -1267,7 +1597,7 @@
 
 
 
-;; From /home/murrayc/cvs/gnome210/atk/atk/atkrelation.h
+;; From atkrelation.h
 
 (define-function atk_relation_get_type
   (c-name "atk_relation_get_type")
@@ -1328,9 +1658,18 @@
   )
 )
 
+(define-method remove_target
+  (of-object "AtkRelation")
+  (c-name "atk_relation_remove_target")
+  (return-type "gboolean")
+  (parameters
+    '("AtkObject*" "target")
+  )
+)
 
 
-;; From /home/murrayc/cvs/gnome210/atk/atk/atkrelationset.h
+
+;; From atkrelationset.h
 
 (define-function atk_relation_set_get_type
   (c-name "atk_relation_set_get_type")
@@ -1349,6 +1688,16 @@
   (return-type "gboolean")
   (parameters
     '("AtkRelationType" "relationship")
+  )
+)
+
+(define-method contains_target
+  (of-object "AtkRelationSet")
+  (c-name "atk_relation_set_contains_target")
+  (return-type "gboolean")
+  (parameters
+    '("AtkRelationType" "relationship")
+    '("AtkObject*" "target")
   )
 )
 
@@ -1406,11 +1755,11 @@
 
 
 
-;; From /home/murrayc/cvs/gnome210/atk/atk/atkrelationtype.h
+;; From atkrelationtype.h
 
 
 
-;; From /home/murrayc/cvs/gnome210/atk/atk/atkselection.h
+;; From atkselection.h
 
 (define-function atk_selection_get_type
   (c-name "atk_selection_get_type")
@@ -1473,7 +1822,37 @@
 
 
 
-;; From /home/murrayc/cvs/gnome210/atk/atk/atkstate.h
+;; From atksocket.h
+
+(define-function atk_socket_get_type
+  (c-name "atk_socket_get_type")
+  (return-type "GType")
+)
+
+(define-function atk_socket_new
+  (c-name "atk_socket_new")
+  (is-constructor-of "AtkSocket")
+  (return-type "AtkObject*")
+)
+
+(define-method embed
+  (of-object "AtkSocket")
+  (c-name "atk_socket_embed")
+  (return-type "none")
+  (parameters
+    '("gchar*" "plug_id")
+  )
+)
+
+(define-method is_occupied
+  (of-object "AtkSocket")
+  (c-name "atk_socket_is_occupied")
+  (return-type "gboolean")
+)
+
+
+
+;; From atkstate.h
 
 (define-function atk_state_type_register
   (c-name "atk_state_type_register")
@@ -1499,7 +1878,7 @@
 
 
 
-;; From /home/murrayc/cvs/gnome210/atk/atk/atkstateset.h
+;; From atkstateset.h
 
 (define-function atk_state_set_get_type
   (c-name "atk_state_set_get_type")
@@ -1600,7 +1979,7 @@
 
 
 
-;; From /home/murrayc/cvs/gnome210/atk/atk/atkstreamablecontent.h
+;; From atkstreamablecontent.h
 
 (define-function atk_streamable_content_get_type
   (c-name "atk_streamable_content_get_type")
@@ -1631,9 +2010,79 @@
   )
 )
 
+(define-method get_uri
+  (of-object "AtkStreamableContent")
+  (c-name "atk_streamable_content_get_uri")
+  (return-type "const-gchar*")
+  (parameters
+    '("const-gchar*" "mime_type")
+  )
+)
 
 
-;; From /home/murrayc/cvs/gnome210/atk/atk/atktable.h
+
+;; From atktablecell.h
+
+(define-function atk_table_cell_get_type
+  (c-name "atk_table_cell_get_type")
+  (return-type "GType")
+)
+
+(define-method get_column_span
+  (of-object "AtkTableCell")
+  (c-name "atk_table_cell_get_column_span")
+  (return-type "gint")
+)
+
+(define-method get_column_header_cells
+  (of-object "AtkTableCell")
+  (c-name "atk_table_cell_get_column_header_cells")
+  (return-type "GPtrArray*")
+)
+
+(define-method get_position
+  (of-object "AtkTableCell")
+  (c-name "atk_table_cell_get_position")
+  (return-type "gboolean")
+  (parameters
+    '("gint*" "row")
+    '("gint*" "column")
+  )
+)
+
+(define-method get_row_span
+  (of-object "AtkTableCell")
+  (c-name "atk_table_cell_get_row_span")
+  (return-type "gint")
+)
+
+(define-method get_row_header_cells
+  (of-object "AtkTableCell")
+  (c-name "atk_table_cell_get_row_header_cells")
+  (return-type "GPtrArray*")
+)
+
+(define-method get_row_column_span
+  (of-object "AtkTableCell")
+  (c-name "atk_table_cell_get_row_column_span")
+  (return-type "gboolean")
+  (parameters
+    '("gint*" "row")
+    '("gint*" "column")
+    '("gint*" "row_span")
+    '("gint*" "column_span")
+  )
+)
+
+(define-method get_table
+  (of-object "AtkTableCell")
+  (c-name "atk_table_cell_get_table")
+  (return-type "AtkObject*")
+)
+
+
+
+;; From atktable.h
 
 (define-function atk_table_get_type
   (c-name "atk_table_get_type")
@@ -1900,7 +2349,7 @@
 
 
 
-;; From /home/murrayc/cvs/gnome210/atk/atk/atktext.h
+;; From atktext.h
 
 (define-function atk_text_attribute_register
   (c-name "atk_text_attribute_register")
@@ -1908,6 +2357,11 @@
   (parameters
     '("const-gchar*" "name")
   )
+)
+
+(define-function atk_text_range_get_type
+  (c-name "atk_text_range_get_type")
+  (return-type "GType")
 )
 
 (define-function atk_text_get_type
@@ -1965,6 +2419,18 @@
   (parameters
     '("gint" "offset")
     '("AtkTextBoundary" "boundary_type")
+    '("gint*" "start_offset")
+    '("gint*" "end_offset")
+  )
+)
+
+(define-method get_string_at_offset
+  (of-object "AtkText")
+  (c-name "atk_text_get_string_at_offset")
+  (return-type "gchar*")
+  (parameters
+    '("gint" "offset")
+    '("AtkTextGranularity" "granularity")
     '("gint*" "start_offset")
     '("gint*" "end_offset")
   )
@@ -2143,7 +2609,7 @@
 
 
 
-;; From /home/murrayc/cvs/gnome210/atk/atk/atkutil.h
+;; From atkutil.h
 
 (define-function atk_util_get_type
   (c-name "atk_util_get_type")
@@ -2170,7 +2636,7 @@
   (c-name "atk_focus_tracker_init")
   (return-type "none")
   (parameters
-    '("AtkEventListenerInit" "add_function")
+    '("AtkEventListenerInit" "init")
   )
 )
 
@@ -2236,9 +2702,14 @@
   (return-type "const-gchar*")
 )
 
+(define-function atk_get_version
+  (c-name "atk_get_version")
+  (return-type "const-gchar*")
+)
 
 
-;; From /home/murrayc/cvs/gnome210/atk/atk/atkvalue.h
+
+;; From atkvalue.h
 
 (define-function atk_value_get_type
   (c-name "atk_value_get_type")
@@ -2280,5 +2751,105 @@
     '("const-GValue*" "value")
   )
 )
+
+(define-method get_minimum_increment
+  (of-object "AtkValue")
+  (c-name "atk_value_get_minimum_increment")
+  (return-type "none")
+  (parameters
+    '("GValue*" "value")
+  )
+)
+
+(define-method get_value_and_text
+  (of-object "AtkValue")
+  (c-name "atk_value_get_value_and_text")
+  (return-type "none")
+  (parameters
+    '("gdouble*" "value")
+    '("gchar**" "text")
+  )
+)
+
+(define-method get_range
+  (of-object "AtkValue")
+  (c-name "atk_value_get_range")
+  (return-type "AtkRange*")
+)
+
+(define-method get_increment
+  (of-object "AtkValue")
+  (c-name "atk_value_get_increment")
+  (return-type "gdouble")
+)
+
+(define-method get_sub_ranges
+  (of-object "AtkValue")
+  (c-name "atk_value_get_sub_ranges")
+  (return-type "GSList*")
+)
+
+(define-method set_value
+  (of-object "AtkValue")
+  (c-name "atk_value_set_value")
+  (return-type "none")
+  (parameters
+    '("const-gdouble" "new_value")
+  )
+)
+
+(define-method get_name
+  (of-object "AtkValueType")
+  (c-name "atk_value_type_get_name")
+  (return-type "const-gchar*")
+)
+
+(define-method get_localized_name
+  (of-object "AtkValueType")
+  (c-name "atk_value_type_get_localized_name")
+  (return-type "const-gchar*")
+)
+
+
+
+;; From atkversion.h
+
+(define-function atk_get_major_version
+  (c-name "atk_get_major_version")
+  (return-type "guint")
+)
+
+(define-function atk_get_minor_version
+  (c-name "atk_get_minor_version")
+  (return-type "guint")
+)
+
+(define-function atk_get_micro_version
+  (c-name "atk_get_micro_version")
+  (return-type "guint")
+)
+
+(define-function atk_get_binary_age
+  (c-name "atk_get_binary_age")
+  (return-type "guint")
+)
+
+(define-function atk_get_interface_age
+  (c-name "atk_get_interface_age")
+  (return-type "guint")
+)
+
+
+
+;; From atkwindow.h
+
+(define-function atk_window_get_type
+  (c-name "atk_window_get_type")
+  (return-type "GType")
+)
+
+
+
+;; From stamp-atkmarshal.h
 
 
