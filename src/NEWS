@@ -1,0 +1,48 @@
+atkmm 2.22.7 (stable):
+
+* Remove the use of g_type_init() because it has been deprecated.
+  (José Alburquerque)
+   
+atkmm 2.22.6 (stable):
+
+* Add #includes needed with the latest glibmm.
+
+atkmm 2.22.5 (stable):
+
+* Install the m4 files even without --enable-maintainer-mode, as with
+  with other modules.
+  (Kalev Lember) Bug #645669
+
+atkmm 2.22.4 (stable):
+
+* Avoid a tarball dependency on mm-common.
+  (Murray Cumming)
+
+atkmm 2.22.3 (stable):
+
+Just a tarball regeneration due to a changed m4 macro in mm-common.
+
+atkmm 2.22.2 (stable):
+
+* Install m4 files needed by recent versions of gtkmm when building from git.
+
+atkmm 2.22.1 (stable):
+
+* Distribute the GPL in the tarball, in addition to the LGPL, because the
+  Windows build uses a GPL builder tool.
+  (Murray Cumming. Thanks to Krzysztof Klimonda)
+
+atkmm 2.22.0 (stable)
+
+* Just increased version to show that it's an API/ABI-stable release.
+
+atkmm 2.21.2 (unstable)
+
+* Documentation: Added text for the main page.
+  (Murray Cumming)
+
+atkmm 2.21.1 (unstable)
+
+First release as a separate module. This was previously part of the gtkmm module.
+Distro packagers should deal with this in the same way that they dealt with
+pangomm when that was split off from gtkmm.
